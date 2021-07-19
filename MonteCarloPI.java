@@ -1,3 +1,4 @@
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -75,12 +76,13 @@ public class Main extends JFrame implements ActionListener{
 			if(point.mag() < .5) {
 				circleHits++;
 			}
-			Graphics g = getGraphics();
+			Graphics2D g = (Graphics2D) getGraphics();
 			g.setColor(Color.RED);
+			g.setStroke(new BasicStroke(3));
 			g.drawOval(7, 32, 385, 385);
 			g.setColor(Color.BLACK);
 			g.fillOval(7+(int)((385)*(.5+point.x)), 32+(int)((385)*(.5+point.y)), 3, 3);
-			if(i%25==0) {
+			if(i%100==0) {
 				g.clearRect(352, 360, 50, 40);
 				g.drawRect(352, 360, 50, 40);
 				g.drawString(Double.toString((4)*((double)circleHits/i)), 357, 375);
@@ -88,7 +90,7 @@ public class Main extends JFrame implements ActionListener{
 			}
 			synchronized(this) {
 				try {
-					Thread.sleep(10);
+					Thread.sleep(1);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
@@ -102,8 +104,6 @@ public class Main extends JFrame implements ActionListener{
 		if(!paint)
 			return;
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.RED);
-		g2d.drawOval(7, 32, 385, 385);
 		g2d.setColor(Color.BLACK);
         for(vec i : points) {
         	g2d.fillOval(7+(int)((385)*(.5+i.x)), 32+(int)((385)*(.5+i.y)), 3, 3);
@@ -112,6 +112,9 @@ public class Main extends JFrame implements ActionListener{
 		g2d.drawRect(352, 360, 50, 40);
 		g2d.drawString(Double.toString((4)*((double)circleHits/dots)), 357, 375);
 		g2d.drawString(Integer.toString(dots), 357, 390);
+		g2d.setStroke(new BasicStroke(3));
+		g2d.setColor(Color.RED);
+		g2d.drawOval(7, 32, 385, 385);
     }
 
 }
